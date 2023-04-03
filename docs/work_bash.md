@@ -1,12 +1,26 @@
+# Notes for Project (Fast Components, React.js, Node.js)
 
-# Encryption, Security, Linux
+## Referenced Resources
+
+- [VS_Node](https://learn.microsoft.com/en-us/visualstudio/javascript/tutorial-nodejs-with-react-and-jsx?view=vs-2022)
+- [MS_Node](https://learn.microsoft.com/en-us/training/modules/create-nodejs-project-dependencies/5-exercise-dependency)
+- [Fast](https://www.fast.design/docs/integrations/react)
+
+## Notes from [Hima_Work](https://github.com/bahim22/work) Repository
+
+<!-- <https://github.com/bahim22/workhttps://github.com/bahim22/work> -->
+
+## Encryption, Security, Linux
 
 | SSH | GPG | Git | Commands | permissions |
 |--- | ---| ---|--- | ---|
 | | | | | |
 
-- [Encryption, Security, Linux](#encryption-security-linux)
-- [Git info](#git-info)
+- [Notes for Project (Fast Components, React.js, Node.js)](#notes-for-project-fast-components-reactjs-nodejs)
+  - [Referenced Resources](#referenced-resources)
+  - [Notes from Hima\_Work Repository](#notes-from-hima_work-repository)
+  - [Encryption, Security, Linux](#encryption-security-linux)
+  - [Git info](#git-info)
   - [SSH to GitHub](#ssh-to-github)
     - [initial ssh example](#initial-ssh-example)
     - [ssh-keygen cmds](#ssh-keygen-cmds)
@@ -28,7 +42,7 @@
     - [Excel](#excel)
     - [Vim](#vim)
 
-# Git info
+## Git info
 
 ```sh
 echo "# Scheduling App" >> README.md
@@ -642,7 +656,7 @@ for f in 'ls -R'; do [! -d"$f"] && chmod a-x "$f"; done
 | 96 = turquoise |  105 = light purple bg|
 | 97 = white | 106, 107 = turquoise, white bg |
 
-----------
+___
 
 ## PowerShell
 
