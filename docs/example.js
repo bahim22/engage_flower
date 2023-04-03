@@ -22,7 +22,8 @@ app2.get('/client', (req, res) => {
 	res.status(404).send('Sorry, cant find that');
 })
 
-// Listen for connections. A node http.Server is returned, with this application (which is a Function) as its callback.
+// Listen for connections. \
+// A node http.Server is returned, w/ this app (which is a func) as its callback.
 
 // express = require('express'), app = express();
 var http = require('http'), https = require('https')
@@ -43,3 +44,16 @@ User.find(id, function(err, user){
 });
 });
 
+const cors = require('cors')
+
+app.get('/', (req, res) => {
+	res.send('temp data')
+});
+
+app.post('/', (req, res) => {
+	res.setDefaultEncoding('POST req to homepage')
+})
+
+app.post('/callback', (req, res) => {
+	res.send('POST req to callback URI')
+})
