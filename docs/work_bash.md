@@ -20,7 +20,7 @@
   - [Referenced Resources](#referenced-resources)
   - [Notes from Hima\_Work Repository](#notes-from-hima_work-repository)
   - [Encryption, Security, Linux](#encryption-security-linux)
-- [Git info](#git-info)
+  - [Git info](#git-info)
   - [SSH to GitHub](#ssh-to-github)
     - [initial ssh example](#initial-ssh-example)
     - [ssh-keygen cmds](#ssh-keygen-cmds)
@@ -42,7 +42,7 @@
     - [Excel](#excel)
     - [Vim](#vim)
 
-# Git info
+## Git info
 
 ```sh
 echo "# Scheduling App" >> README.md
@@ -656,7 +656,7 @@ for f in 'ls -R'; do [! -d"$f"] && chmod a-x "$f"; done
 | 96 = turquoise |  105 = light purple bg|
 | 97 = white | 106, 107 = turquoise, white bg |
 
-----------
+___
 
 ## PowerShell
 
