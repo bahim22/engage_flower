@@ -4,7 +4,9 @@
 	"description": "Backend directory for fullstack web app",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node server/index.js",
+		"build": "cd client && npm install && npm run build"
 	},
 	"repository": {
 		"type": "git",
@@ -33,5 +35,21 @@
 		"eslint": "^8.0.0",
 		"nodemon": "^2.0.12",
 		"prettier": "^2.4.1"
+	},
+	"eslintIgnore": [
+		"node_modules",
+		"dist",
+		"build",
+		"package.json",
+		"package-lock.json"
+	],
+	"prettierIgnore": [
+		"node_modules",
+		"dist",
+		"build",
+		"package-lock.json"
+	],
+	"engines": {
+		"node": ">v12 || v18.15.0"
 	}
 }
