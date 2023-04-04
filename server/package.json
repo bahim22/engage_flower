@@ -1,32 +1,37 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "Backend directory for fullstack web app",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bahim22/engage_flower.git"
-  },
-  "keywords": [
-    "Node",
-    "JavaScript",
-    "React",
-    "Database",
-    "Vercel"
-  ],
-  "author": "Hima Balde",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/bahim22/engage_flower/issues"
-  },
-  "homepage": "https://github.com/bahim22/engage_flower#readme",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "mongodb": "^5.1.0"
-  }
+	"name": "server",
+	"version": "1.0.0",
+	"description": "Backend directory for fullstack web app",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bahim22/engage_flower.git"
+	},
+	"keywords": [
+		"Node",
+		"JavaScript",
+		"React",
+		"Database",
+		"Vercel"
+	],
+	"author": "Hima Balde",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/bahim22/engage_flower/issues"
+	},
+	"homepage": "https://github.com/bahim22/engage_flower#readme",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"dotenv": "^16.0.3",
+		"express": "^4.18.2",
+		"mongodb": "^5.1.0"
+	},
+	"devDependencies": {
+		"eslint": "^8.0.0",
+		"nodemon": "^2.0.12",
+		"prettier": "^2.4.1"
+	}
 }
