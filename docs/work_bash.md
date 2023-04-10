@@ -1,14 +1,4 @@
-# Notes for Project (Fast Components, React.js, Node.js)
-
-## Referenced Resources
-
-- [VS_Node](https://learn.microsoft.com/en-us/visualstudio/javascript/tutorial-nodejs-with-react-and-jsx?view=vs-2022)
-- [MS_Node](https://learn.microsoft.com/en-us/training/modules/create-nodejs-project-dependencies/5-exercise-dependency)
-- [Fast](https://www.fast.design/docs/integrations/react)
-
-## Notes from [Hima_Work](https://github.com/bahim22/work) Repository
-
-<!-- <https://github.com/bahim22/workhttps://github.com/bahim22/work> -->
+# Notes from [Hima_Work](https://github.com/bahim22/work) Repository
 
 ## Encryption, Security, Linux
 
@@ -16,9 +6,7 @@
 |--- | ---| ---|--- | ---|
 | | | | | |
 
-- [Notes for Project (Fast Components, React.js, Node.js)](#notes-for-project-fast-components-reactjs-nodejs)
-  - [Referenced Resources](#referenced-resources)
-  - [Notes from Hima\_Work Repository](#notes-from-hima_work-repository)
+- [Notes from Hima\_Work Repository](#notes-from-hima_work-repository)
   - [Encryption, Security, Linux](#encryption-security-linux)
   - [Git info](#git-info)
   - [SSH to GitHub](#ssh-to-github)
@@ -31,16 +19,10 @@
     - [Bash commands](#bash-commands)
     - [curl](#curl)
     - [Bash Scripting](#bash-scripting)
-  - [Apt Info](#apt-info)
   - [Shell command info](#shell-command-info)
   - [Symbolic rep of data](#symbolic-rep-of-data)
   - [Linux permissions](#linux-permissions)
-  - [Git Config terminal colors](#git-config-terminal-colors)
   - [PowerShell](#powershell)
-    - [Pwsh Paths](#pwsh-paths)
-    - [Pwsh Commands to review](#pwsh-commands-to-review)
-    - [Excel](#excel)
-    - [Vim](#vim)
 
 ## Git info
 
@@ -145,9 +127,6 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub azureuser@myserver
     - requires the -h option
     - host certificate will be output to /path/to/host_key-cert.pub.
 
->>
-  review: ssh(1), ssh-add(1), ssh-agent(1), sshd(8)
-
 ```bash
 #!/bin/bash
 
@@ -229,52 +208,6 @@ gpg --armor --export aaa123aaa123
 ___
 
 ## Git Commands & examples
-<!-- cspell: disable  -->
-
-```sh
-#  giteveryday --help
-tar zxf frotz.tar.gz
-cd frotz
-git init
-git add . (1)
-git commit -m "import of frotz source tree."
-git tag v2.43 (2)
-
-# Use a tarball as a starting point for a new repository.
-# 1. add all fi under the cwd.
-# 2. make a lightweight, unannotated tag.
-
-# Create a topic branch and develop.
-
-git switch -c alsa-audio (1)
-edit/compile/test
-git restore curses/ux_audio_oss.c (2)
-git add curses/ux_audio_alsa.c (3)
-edit/compile/test
-git diff HEAD (4)
-git commit -a -s (5)
-edit/compile/test
-git diff HEAD^ (6)
-git commit -a --amend (7)
-git switch master (8)
-git merge alsa-audio (9)
-git log --since='3 days ago' (10)
-git log v2.43.. curses/ (11)
-```
-<!-- cspell: enable  -->
-
-1. create a new topic branch.
-2. revert your botched changes in curses/ux_audio_oss.c.
-3. you need to tell Git if you added a new file; removal and modification will be caught if you do git commit -a later
-4. to see what changes you are committing.
-5. commit everything, as you have tested, with your sign-off.
-6. look at all your changes including the previous commit.
-7. amend the previous commit, adding all your new changes, using original message
-8. switch to the master branch.
-9. merge a topic branch into your master branch.
-10. review commit logs; other forms to limit output can be combined and include -10 (to show up to 10 commits), --until=2005-12-10, etc
-11. view only the changes that touch what’s in curses/ directory,
-since v2.43 tag.
 
 ```sh
 # Clone the upstream and work on it. Feed changes to upstream.
@@ -414,8 +347,6 @@ rm -r /folder/want-deleted # remove dir & content recursively
 rm -rp # ignore permissions & errors
 sudo rm -rf path/to/folder
 su - user -c 'ls' # switch user and run cmd
-mount -uw # mount with write permissions
-mount -o update /
 diskutil list
 df -h
 find / -size +50000 -print
@@ -482,8 +413,6 @@ dd # make boot images & copy/backup HDDs
     # Copy fi, converting & formatting depending on operands
 makeswap && swapon # (add | manage) swap space
 dpkg # install/remove deb packages
-# To-Do:
-ps, top, vmstat, brk, mmap, systemctl, init
 ```
 
 ### curl
@@ -499,10 +428,7 @@ curl -u name:password --digest https://example.com
 curl --config file.txt https://example.com # -K file
 --rate, -Y, --speed-limit and -y, --speed-time, -6 # use IPv6
 # measured in bytes/second, unless suffix is appended, (k, M, G ex. 1k is 1024)
-curl --interface eth0 https://example.com
 
-curl --happy-eyeballs-timeout-ms 500 https://example.com # give ipv6 a headstart
-# <!-- look up curl -F, --form -->
  curl -F '=(;type=multipart/alternative' \
       -F '=plain text message' \
       -F '= <body>HTML message</body>;type=text/html' \
@@ -515,6 +441,49 @@ curl --happy-eyeballs-timeout-ms 500 https://example.com # give ipv6 a headstart
  -O
  referer = "http://nowhereatall.example.com/"
  # --- End of example file ---
+
+# Data api ex.
+ curl --location --request POST 'https://eastus2.azure.data.mongodb-api.com/app/data-pdctr/endpoint/data/v1/action/findOne' \
+--header 'Content-Type: application/json' \
+--header 'Access-Control-Request-Headers: *' \
+--header 'api-key: abc123' \
+--data-raw '{
+    "collection":"listingsAndReviews",
+    "database":"sample_airbnb",
+    "dataSource":"Cluster0",
+    "projection": {"_id": 1}
+}'
+```
+
+```py
+# MongoDB Data api ex.
+import requests
+import json
+from os import environ
+from dotenv import load_dotenv
+
+load_dotenv('../server/.env')
+
+url = "https://eastus2.azure.data.mongodb-api.com/app/data-pdctr/endpoint/data/v1/action/findOne"
+
+payload = json.dumps({
+    "collection": "listingsAndReviews",
+    "database": "sample_airbnb",
+    "dataSource": "Cluster0",
+    "projection": {
+        "_id": 1
+    }
+})
+headers = {
+  'Content-Type': 'application/json',
+  'Access-Control-Request-Headers': '*',
+  'api-key': os.environ.get('API_KEY'), # || os.getenv('API_KEY')
+  'Accept': 'application/ejson'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
 ```
 
 ### Bash Scripting
@@ -544,53 +513,6 @@ $SECONDS: The number of seconds the script has been running for.
 $RANDOM: Returns a random number.
 $LINENO: Returns the current line number of the script
 ```
-
-```sh
-# install powershell on Ubuntu
-# Update the list of packages
-sudo apt-get update
-# Install pre-requisite packages.
-sudo apt-get install -y wget apt-transport-https software-properties-common
-# Download the Microsoft repository GPG keys
-wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-# Register the Microsoft repository GPG keys
-sudo dpkg -i packages-microsoft-prod.deb
-# Update the list of packages after we added packages.microsoft.com
-sudo apt-get update
-# Install PowerShell
-sudo apt-get install -y powershell
-# Start PowerShell
-pwsh
-```
-
-## Apt Info
-
-```sh
-apt [-h] [-o=config_string] [-c=config_file] [-t=target_release] [-a=architecture] {list | search | show | update | install pkg
-[{=pkg_ver_num | /target_release}]... | remove pkg... | upgrade | full-upgrade | edit-sources | {-v --version} |{-h--help}}
-```
-<!-- cspell: enable  -->
-
->
-interface for package management system.
-To-Do: apt-get, apt-cache, sources.list, apt.conf, apt-config
-
-- `update` (apt-get(8)) update is used to download package information from all configured sources. Other commands operate on this data to e.g. perform package upgrades or search in and display details about all packages available for installation
-- `upgrade` (apt-get(8)) upgrade is used to install available upgrades of all packages   currently installed on the system from the sources configured via  sources.list(5). New packages will be installed if required to satisfy dependencies, but existing packages will never be removed. If an upgrade for a package requires the removal of an installed package the upgrade for this package isn\'t performed.
-- `full-upgrade`: performs the function of upgrade but will remove currently installed packages if this is needed to upgrade the system as a whole.
-- `install, reinstall, remove, purge`: Performs the requested action on one or more packages specified via regex(7), glob(7) or exact match. The requested action can be overridden for specific packages by appending a plus (+) to the package name to install this package or a minus (-) to remove it.
-  - A specific version of a package can be selected for installation by following the package name with an equals (=) and the version of the package to select. Alternatively the version from a specific release can be selected by following the package name with a forward slash (/) and codename (buster, bullseye, sid ...) or suite name (stable,testing, unstable). This will also select versions from this release for dependencies of this package if needed to satisfy the request.
-  - Removing a package removes all packaged data, but leaves usually small (modified) user configuration files behind, in case the remove was an accident. Just issuing an installation request for the accidentally removed package will restore its function as before in that case.
-  - On the other hand you can get rid of these leftovers by calling purge even on already removed packages. Note that this does not affect any data or configuration stored in your home directory.
-- `autoremove` is used to remove packages that were automatically installed to satisfy dependencies for other packages and are now no longer needed as dependencies changed or the package(s) needing them were removed in the meantime.
-  - You should check that the list does not include applications you have grown to like even though they were once installed just as a dependency of another package. You can mark such a package as manually installed by using apt-mark(8). Packages which you have installed explicitly via install are also never proposed for automatic removal.
-- `satisfy`: satisfies dependency strings, as used in Build-Depends. It also handles conflicts, by prefixing an argument with "Conflicts: <(value)>".
-- `search`: can be used to search for the given regex(7) term(s) in the list of available packages and display matches. This can e.g. be useful if you are looking for packages having a specific feature. If you are looking for a package including a specific file try apt-file.
-- `show`: information about the given package(s) including its dependencies, installation and download size, sources the package is available from, the description of the packages content and much more
-- `list`: is somewhat similar to dpkg-query --list in that it can display a list of packages satisfying certain criteria. It supports glob patterns for matching package names as well as options to list installed (--installed), upgradeable (--upgradeable) or all available (--all-versions) versions.
-- `edit-sources`: lets you edit your sources.list(5) files in your preferred text editor while also providing basic sanity checks.
--
-<!-- cspell: disable  -->
 
 ## Shell command info
 
@@ -636,6 +558,7 @@ for f in 'ls -R'; do [! -d"$f"] && chmod a-x "$f"; done
 # other solution
 ```
 
+<<<<<<< HEAD
 ## Git Config terminal colors
 
 | foreground('') k:int == v:str | background(bg) | style |
@@ -658,53 +581,9 @@ for f in 'ls -R'; do [! -d"$f"] && chmod a-x "$f"; done
 
 ___
 
+=======
+>>>>>>> 5281fc777ff1615f13c9f684186c288acf61eb87
 ## PowerShell
-
-### Pwsh Paths
-
-- $PSHOME is /opt/microsoft/powershell/7/
-- User profiles are read from  ~/.config/powershell/profile.ps1
-- Default profiles  $PSHOME/profile.ps1
-- User modules  ~/.local/share/powershell/Modules
-- Shared modules  /usr/local/share/powershell/Modules
-- Default modules  $PSHOME/Modules
-- PSReadLine history is recorded to ~/.local/share/powershell/PSReadLine/ConsoleHost_history.txt
-
-```ps1
-get-help [command] -detailed
-# get more info of a command
-
-Get-WindowsFeature -ComputerName "Server1" -Credential "contoso.com\user1"
-
-Get-WindowsFeature [[-Name] <String[]>] [-ComputerName <String>] [-Credential <PSCredential>] [-LogPath
-    <String>] [-Vhd <String>] [<CommonParameters>]
-
-Copy-Item './images/*' '/home/user/flow/work/Apps/' -Recurse
-
-$Session = New-PSSession -ComputerName "Server04" -Credential "Contoso\User01"
-Copy-Item "D:\Folder003\" -Destination "C:\Folder003_Copy\" -ToSession $Session -Recurse
-
-Get-Service | Where-Object {$_.Status -eq "Running"}
-# get active services
-Get-Service "s*" | Sort-Object status
-# sort by prop value
-
-Get-Service "WinRM" -RequiredServices
-#  get services that depend on this service
-```
-
-### Pwsh Commands to review
-
-- Add-WindowsPackage
-- Enable-WindowsOptionalFeature
-- Get-WindowsFeature
-- Get-WindowsPackage
-- Install-WindowsFeature {Uninstall}
-- Enable-ServerManagerStandardUserRemoting {Disable}
-- New-Service
-  - {Restart | Resume | Set | Start | Stop | Suspend | Remove}
-
-### Excel
 
 ```ps1
 # purge accounts
@@ -713,17 +592,4 @@ Import-Csv '.\SP 23 Declines.csv' | foreach {
   $username = $UPN.Substring(0, $UPN.IndexOf('@'))
   get-aduser $Username | Remove-ADUser
 }
-
-
-Import-Csv '.\CancelDeclines F22 for IT.csv' | foreach {
-  $UPN = $_."PPU Email"
-  $username = $UPN.Substring(0, $UPN.IndexOf('@'))
-  get-aduser $Username | Remove-ADUser
-}
 ```
-
-### Vim
-
-- use `vimtutor` for tutorial on using vim
-- to-do: swap file and get info on nano
-  - created temp swap file by running `vim tutor`
