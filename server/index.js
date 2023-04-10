@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import express from 'express';
 import cors from 'cors';
 import './loadEnv.js';
@@ -21,4 +19,3 @@ app.use((err, _req, res, next) => {
 app.listen(PORT, () => {
 	console.log(`Server running on port: ${PORT}`)
 })
->>>>>>> 5281fc777ff1615f13c9f684186c288acf61eb87

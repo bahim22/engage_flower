@@ -1,5 +1,6 @@
-import dotenv from 'dotenv';
-// import axios
+// import dotenv from 'dotenv';
+// import axios from 'axios';
+import './loadEnv.js';
 
 var axios = require('axios');
 var data = JSON.stringify({
@@ -17,7 +18,7 @@ var config = {
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Request-Headers': '*',
-        'api-key': process.env.DATA_API_KEY,
+        'api-key': process.env.DATA_API_KEY || "",
 		'Accept': 'application/ejson'
     },
 	data: data
