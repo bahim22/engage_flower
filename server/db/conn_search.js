@@ -4,6 +4,7 @@ const uri = process.env.ATLAS_URI || "";
 
 const client = new MongoClient(uri);
 
+// CRUD routes
 async function run() {
 	try {
 		const database = client.db('sample_mflix');
