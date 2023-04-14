@@ -7,22 +7,22 @@
 | | | | | |
 
 - [Notes from Hima\_Work Repository](#notes-from-hima_work-repository)
-  - [Encryption, Security, Linux](#encryption-security-linux)
-  - [Git info](#git-info)
-  - [SSH to GitHub](#ssh-to-github)
-    - [initial ssh example](#initial-ssh-example)
-    - [ssh-keygen cmds](#ssh-keygen-cmds)
-    - [Example ssh connect](#example-ssh-connect)
-    - [GPG key](#gpg-key)
-  - [Git Commands \& examples](#git-commands--examples)
-  - [Bash Script Info](#bash-script-info)
-    - [Bash commands](#bash-commands)
-    - [curl](#curl)
-    - [Bash Scripting](#bash-scripting)
-  - [Shell command info](#shell-command-info)
-  - [Symbolic rep of data](#symbolic-rep-of-data)
-  - [Linux permissions](#linux-permissions)
-  - [PowerShell](#powershell)
+	- [Encryption, Security, Linux](#encryption-security-linux)
+	- [Git info](#git-info)
+	- [SSH to GitHub](#ssh-to-github)
+		- [initial ssh example](#initial-ssh-example)
+		- [ssh-keygen cmds](#ssh-keygen-cmds)
+		- [Example ssh connect](#example-ssh-connect)
+		- [GPG key](#gpg-key)
+	- [Git Commands \& examples](#git-commands--examples)
+	- [Bash Script Info](#bash-script-info)
+		- [Bash commands](#bash-commands)
+		- [curl](#curl)
+		- [Bash Scripting](#bash-scripting)
+	- [Shell command info](#shell-command-info)
+	- [Symbolic rep of data](#symbolic-rep-of-data)
+	- [Linux permissions](#linux-permissions)
+	- [PowerShell](#powershell)
 
 ## Git info
 
@@ -558,31 +558,6 @@ for f in 'ls -R'; do [! -d"$f"] && chmod a-x "$f"; done
 # other solution
 ```
 
-<<<<<<< HEAD
-## Git Config terminal colors
-
-| foreground('') k:int == v:str | background(bg) | style |
-| --- | :--- | --- |
-| 31 = red |40 = black bg | 0 = default color |
-| 32 = green | 41  = red bg | 1 = bold |
-| 33 = orange | 42  = green bg | 4 = underlined |
-| 34 = blue | 43  = orange bg | 5 = flashing text |
-| 35 = purple | 44  = blue bg | 7 = reverse field => (flip color) |
-| 36 = cyan |  45  = purple bg |8 = concealed (invisible)|
-| 37 = grey| 46  = cyan bg |
-| 90 = dark grey | 47  = grey bg  |
-| 91 = light red | 100 = dark grey bg|
-| 92 = light green| 101 = light red bg|
-| 93 = yellow | 102 = light green bg|
-| 94 = light blue | 103 = yellow bg|
-| 95 = light purple  |104 = light blue bg|
-| 96 = turquoise |  105 = light purple bg|
-| 97 = white | 106, 107 = turquoise, white bg |
-
-___
-
-=======
->>>>>>> 5281fc777ff1615f13c9f684186c288acf61eb87
 ## PowerShell
 
 ```ps1
