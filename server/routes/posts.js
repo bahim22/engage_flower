@@ -43,4 +43,6 @@ router.get("/:id", async (req, res) => {
 	let result = await collection.findOne(query)
 	// find the first doc that matches query
 	// @param filter - query for find ops
+	if (!result) res.send("Not Found").status(404);
+	else res.send(result)
 })
