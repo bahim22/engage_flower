@@ -1,4 +1,24 @@
-import logo from './logo.svg';
+import './App.css';
+import FilterButton from './compos/FilterButton';
+import Form from './compos/Form';
+import Todo from './compos/Todo';
+// import MainNav from './components/Main';
+
+
+function App() {
+	return (
+		<>
+			<Form />
+			<Todo />
+			<FilterButton />
+		</>
+	)
+}
+
+
+
+
+/* import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -22,4 +42,5 @@ function App() {
   );
 }
 
+*/
 export default App;
