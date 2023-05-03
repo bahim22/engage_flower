@@ -1,12 +1,13 @@
 import React from 'react'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Badge from 'react-bootstrap/Badge'
-import Button from 'react-bootstrap/Button'
+// import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 const Todo = ({ name, id, importance }) => {
 // const Todo = (props) => {
 	// const { name, completed, id } = props;
-
   return (
 	<>
 	<ListGroup as='ol' numbered>
@@ -34,10 +35,10 @@ const Todo = ({ name, id, importance }) => {
 
 export default Todo;
 
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+// import Form from 'react-bootstrap/Form';
+// import InputGroup from 'react-bootstrap/InputGroup';
 
-export function CheckboxesExample() {
+function CheckboxesExample() {
   return (
     <>
       <InputGroup className="mb-3">
@@ -50,4 +51,6 @@ export function CheckboxesExample() {
       </InputGroup>
     </>
   );
-}
+};
+
+export { CheckboxesExample };

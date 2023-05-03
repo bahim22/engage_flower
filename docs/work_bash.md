@@ -294,6 +294,8 @@ git checkout -b $branch_name
 git add . # add all edited files to repo
 git commit -m $message || $2
 git push -u origin || git push ssh://git@ssh.github.com:443/($uname)/$repo.git
+
+git push -u origin main
 ```
 
 - You can do a compare & pull request to see changes that're done
