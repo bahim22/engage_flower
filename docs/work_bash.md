@@ -3,8 +3,8 @@
 ## Encryption, Security, Linux
 
 | SSH | GPG | Git | Commands | permissions |
-|--- | ---| ---|--- | ---|
-| | | | | |
+| --- | --- | --- | -------- | ----------- |
+|     |     |     |          |             |
 
 - [Notes from Hima\_Work Repository](#notes-from-hima_work-repository)
 	- [Encryption, Security, Linux](#encryption-security-linux)
@@ -22,6 +22,7 @@
 	- [Shell command info](#shell-command-info)
 	- [Symbolic rep of data](#symbolic-rep-of-data)
 	- [Linux permissions](#linux-permissions)
+	- [Wildcard patterns](#wildcard-patterns)
 	- [PowerShell](#powershell)
 
 ## Git info
@@ -48,6 +49,20 @@ nvm install node
 
 # install file from github repo
 curl -o work_bash.md --dns-servers 1.1.1.1 --compressed https://raw.githubusercontent.com/bahim22/work/ppu/Docs_Scripts/bash_cmds.md
+```
+
+```sh
+url=$1 # or just use $1 in place where you'd insert the param.
+branchname='name'
+message=$2
+git clone $url # git clone $1; then replace $1 w/ url when calling script
+git status # what's changed since last commit
+git checkout -b $branch_name
+git add . # add all edited files to repo
+git commit -m $message || $2
+git push -u origin || git push ssh://git@ssh.github.com:443/($uname)/$repo.git
+
+git push -u origin main
 ```
 
 ___
@@ -284,20 +299,6 @@ machine into the master branch.
 
 ## Bash Script Info
 
-```sh
-url=$1 # or just use $1 in place where you'd insert the param.
-branchname='name'
-message=$2
-git clone $url # git clone $1; then replace $1 w/ url when calling script
-git status # what's changed since last commit
-git checkout -b $branch_name
-git add . # add all edited files to repo
-git commit -m $message || $2
-git push -u origin || git push ssh://git@ssh.github.com:443/($uname)/$repo.git
-
-git push -u origin main
-```
-
 - You can do a compare & pull request to see changes that're done
 - merge pull requests & del old branch
 
@@ -528,17 +529,17 @@ $LINENO: Returns the current line number of the script
 
 ## Symbolic rep of data
 
-| abbrev | value |
-| --- | --- |
-| no |  Global default |
-|fi  |  Normal file |
-|di  |  Directory|
-|ln  |  Symbolic link |
-|bd  |  Block device|
-|cd  |  Character device|
-|or  |  Symlink to non-existent fi |
-|ex  |  Executable fi |
-|*.extension | (ex: *.mp3)|
+| abbrev      | value                      |
+| ----------- | -------------------------- |
+| no          | Global default             |
+| fi          | Normal file                |
+| di          | Directory                  |
+| ln          | Symbolic link              |
+| bd          | Block device               |
+| cd          | Character device           |
+| or          | Symlink to non-existent fi |
+| ex          | Executable fi              |
+| *.extension | (ex: *.mp3)                |
 
 ## Linux permissions
 
@@ -559,6 +560,19 @@ chmode -R,a-x,u+X *
 for f in 'ls -R'; do [! -d"$f"] && chmod a-x "$f"; done
 # other solution
 ```
+
+## Wildcard patterns
+
+Special characters recognized in section names for wildcard matching:
+
+- '*'	Matches any string of characters, except path separators (/)
+- '**' Matches any string of characters
+- '?'	Matches any single character
+- '[name]'	Matches any single character in name
+- '[!name]'	Matches any single character not in name
+- '{s1,s2,s3}'	Matches any of the strings given (separated by commas)
+- {num1..num2}	Matches any integer numbers between num1 and num2, where num1 and num2 can be either positive or negative
+- Special characters can be escaped with a backslash so they won't be interpreted as wildcard patterns.
 
 ## PowerShell
 
