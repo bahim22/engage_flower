@@ -1,111 +1,47 @@
 
-# Python Base Info
+# Python Docs
 
-## Terms
-<!-- cspell: disable  -->
+## Shell, Env & Package Management
 
-1. High-level language and program written in C that interprets the source code, parses it (examine/analyze syntactic structure) and processes it
-2. semantic: meaning of a prog.
-3. syntax: rules that define the structure of the lang.
-4. Translator types:
-   1. interpreters: executes prog. in high level lang by translating 1 line at a time
-   2. compilers: get's the prog. file, then runs a process to translate the high-level source code into machine language; afterwards it puts it into a file to be executed later in .exe or .dll files (executable and dynamic link library)
-   3. machine code/low-level lang/assembly lang: the lowest level lang. for software that's directly executed by CPU
-5. programs (py statements crafted to do a task) are saved to files called scripts and called by running: python <filename.py>
-6. variable: a name that refers to a value. An assignment statement creates new var and gives them values
-7. attribute: a value associated w/ an object; referenced by using dot expression/notation (candy.sour)
-8. callback: subroutine func passed as an arg. to be ee in future
-9. class: a temp for making user-defined objects. Contain method def. that operate on instances of the class
-10. coercion: implicit conversion of one type to another that involves 2 args of same type
-11. decorator: function returning another func. (func transformation using @wrapper syntaxl ex. classmethod(), staticmethod())
-12. descriptor: Any object which defines the methods __get__(), __set__(), or __delete__()
-13. dictionary comprehension: A compact way to process all or part of the elements in an iterable and return a dictionary with the results.
-14. dictionary view: The objects returned from dict.keys(), dict.values(), and dict.items() are called dictionary views.
-15. generator: A function which returns a generator iterator. It looks like a normal function except that it contains yield expressions for producing a series of values usable in a for-loop or that can be retrieved one at a time with the next() function.
-16. immutable: An object with a fixed value. Immutable objects include numbers, strings and tuples. Such an object cannot be altered
-17. Mutable objects can change their value but keep their id().
-18. type: The type of a Python object determines what kind of object it is; every object has a type. An object’s type is accessible as its __class__ attribute or can be retrieved with type(obj).
-
-<!-- /* cspell: enableCompoundWords */ -->
-
-### To-Do
-
-- `iterable`
-An object capable of returning its members one at a time. Examples of iterables include all sequence types (such as list, str, and tuple) and some non-sequence types like dict, file objects, and objects of any classes you define with an __iter__() method or with a __getitem__() method that implements Sequence semantics.
-
-- `iterator`
-An object representing a stream of data. Repeated calls to the iterator’s __next__() method (or passing it to the built-in function next()) return successive items in the stream.
-
-- `key function`
-A key function or collation function is a callable that returns a value used for sorting or ordering. For example, locale.strxfrm() is used to produce a sort key that is aware of locale specific sort conventions. A number of tools in Python accept key functions to control how elements are ordered or grouped. They include min(), max(), sorted(), list.sort(), heapq.merge(), heapq.nsmallest(), heapq.nlargest(), and itertools.groupby().
-
-a.list
-
-- A built-in Python sequence. Despite its name it is more akin to an array in other languages than to a linked list
-  - since access to elements is O(1)
-- an ordered set of items
-
-```py
-a_list = ['a']
-a_list[:] # creates copy of the list
-a_l = a_l + [2.0, 3]
-a_l.append('dog')
-a_l.extend()
-```
-
-- `list comprehension`
-A compact way to process all or part of the elements in a sequence and return a list with the results.
-
-```py
- result = ['{:#04x}'.format(x) for x in range(256) if x % 2 == 0]
-"""
- generates a list of strings containing even hex numbers (0x..) in the range  0 - 255.
- The if clause is optional. If omitted, all elements in range(256) are processed.
-"""
-```
-
-- `mapping`
-A container object that supports arbitrary key lookups and implements the methods specified in the Mapping or MutableMapping abstract base classes. Examples include dict, collections.defaultdict, collections.OrderedDict and collections.Counter.
-
-- `method`
-A function which is defined inside a class body. If called as an attribute of an instance of that class, the method will get the instance object as its first argument (which is usually called self).
-
-- `sequence`
-An iterable which supports efficient element access using integer indices via the __getitem__() special method and defines a __len__() method that returns the length of the sequence. Some built-in sequence types are list, str, tuple, and bytes. Container w/ items stored in deterministic ordering
-
-- `set comprehension`
-A compact way to process all or part of the elements in an iterable and return a set with the results. results = {c for c in 'abracadabra' if c not in 'abc'} generates the set of strings {'r', 'd'}
-
-```py
-def f(arg):
-    ...
-f = staticmethod(f)
-
-@staticmethod
-def f(arg):
-    ...
-
-(int(3.15)) # converts floating pt # to integer 3
-```
-
-## Argument passing
+### Argument passing
 
 - script name and add'l args are turned into a list of `str` then assigned to `argv` var. in `sys` module
-
-- Shebang lines
-
-- file starts with #!
-- Linux/Unix OS have native support and the py launcher allows use with Py scripts on W10.
-- virtual commands include
-<!-- cspell: disable  -->
-
-> /usr/bin/env python, /usr/bin/python, /usr/local/bin/python, python
+- Shebang lines: file starts with #!
+  - Linux/Unix OS have native support and the py launcher allows use with Py scripts on W10.
+  - virtual commands include
 
 ```py
-#! /usr/bin/python || usr/bin/python -v || ./.myvenv/Scripts/python.exe
+# Shebang examples
+
+#! /usr/bin/python
+# || usr/bin/python -v || ./.myvenv/Scripts/python.exe
+
+import sys
+sys.path
 ```
 
-## virtual env creation
+### Paths and Shells
+
+```sh
+echo $BASH_VERSION
+
+cat /etc/shells
+
+/usr/bin/env python, /usr/bin/python, /usr/local/bin/python, python
+
+echo "$(brew --prefix)/bin/bash" | sudo tee -a /etc/shells;
+# can't redirect text for admin owned files so use tee to send output to a file as it's run with sudo, with -a flag appending text instead of overwriting
+
+# use chsh to change users shell
+chsh -s "$(brew --prefix)/bin/bash"
+
+where bash && which bash
+where python && which python
+```
+
+___
+
+### virtual env
 
 ```ps1
 python3 -m venv /path/to/new/virtual/environment
@@ -115,9 +51,7 @@ python -m venv -h
 <venv>\Scripts\Activate.ps1
 venv/Scripts/Activate.ps1
 <venv>/bin/Activate.ps1
-venv [-h] [--system-site-packages] [--symlinks | --copies] [--clear]
-            [--upgrade] [--without-pip] [--prompt PROMPT] [--upgrade-deps]
-            ENV_DIR [ENV_DIR ...]
+venv [-h] [--system-site-packages] [--symlinks | --copies] [--clear] [--upgrade] [--without-pip] [--prompt PROMPT] [--upgrade-deps] ENV_DIR [ENV_DIR ...]
 ```
 
 ```bash
@@ -185,7 +119,7 @@ time python -m pip install \
 curl --dns-servers 1.1.1.1,1.0.0.1 --compressed -o $file -# $url
 ```
 
-## Pip commands
+### Pip commands
 
 | Commands | info |
 | --- | --- |
@@ -206,18 +140,100 @@ curl --dns-servers 1.1.1.1,1.0.0.1 --compressed -o $file -# $url
 |  completion | A helper command used for command completion.|
 |  debug | Show info useful for debugging.|
 
-## system
+## Base Info
+<!-- cspell: disable  -->
+
+### Terms
+
+1. High-level language and program written in C that interprets the source code, parses it (examine/analyze syntactic structure) and processes it
+2. *semantic*: meaning of a prog.
+3. *syntax*: rules that define the structure of the lang.
+4. *Translator types*:
+   1. interpreters: executes prog. in high level lang by translating 1 line at a time
+   2. compilers: get's the prog. file, then runs a process to translate the high-level source code into machine language; afterwards it puts it into a file to be executed later in .exe or .dll files (executable & dynamic link library)
+   3. machine code/low-level lang/assembly lang: the lowest level lang. for software that's directly executed by CPU
+5. `Programs` (python statements crafted to do a task) are saved to files called `scripts` and called by running: python <filename.py>
+6. *variable*: a name that refers to a value. An assignment statement creates new var and gives them values
+7. *attribute*: a value assoc. w/ an object; ref by using dot expression/notation (candy.sour)
+8. *callback*: subroutine func passed as an arg. to be used in future
+9. *class*: a template for making user-defined objects. Contain method def. that operate on instances of the class
+10. *coercion*: implicit conversion of one type to another that involves 2 args of same type
+11. *decorator*: function returning another func. (func transformation using @wrapper syntaxl ex. classmethod(), staticmethod())
+12. *descriptor*: Any object which defines the methods __get__(), __set__(), or __delete__()
+13. *dictionary comprehension*: A compact way to process all or part of the elements in an iterable and return a dictionary with the results.
+14. *dictionary views*: The objects returned from dict.keys(), dict.values(), and dict.items()
+15. *generator*: A func which returns a generator iterator. It looks like a normal func except that it contains yield expressions for producing a series of values usable in a for-loop or that can be retrieved one at a time with the next() func.
+16. *immutable*: An object with a fixed value that can't be altered (includes numbers, strings and tuples).
+17. *Mutable* objects can change values but keep their id().
+18. *type*: The type of a Python object determines what kind of object it is; every object has a type. An object’s type is accessible as its __class__ attribute or can be retrieved with type(obj).
+
+<!-- /* cspell: enableCompoundWords */ -->
+
+### Objects & Functions
+
+- `iterable`
+An object capable of returning its members one at a time. Examples of iterables include all sequence types (such as list, str, and tuple) and some non-sequence types like dict, file objects, and objects of any classes you define with an __iter__() method or with a __getitem__() method that implements Sequence semantics.
+
+- `iterator`
+An object representing a stream of data. Repeated calls to the iterator’s __next__() method (or passing it to the built-in function next()) return successive items in the stream.
+
+- `key function`
+A key function or collation function is a callable that returns a value used for sorting or ordering. For example, locale.strxfrm() is used to produce a sort key that is aware of locale specific sort conventions. A number of tools in Python accept key functions to control how elements are ordered or grouped.
 
 ```py
-import sys
-sys.path
+include min(), max(), sorted(), list.sort(), heapq.merge(), heapq.nsmallest(), heapq.nlargest(), and itertools.groupby().
 ```
 
-```sh
-where python && which python
+- `list`: A built-in Python sequence. Despite its name it is more akin to an array in other languages than to a linked list
+  - since access to elements is O(1)
+- an ordered set of items
+
+```py
+# a.list
+a_list = ['a']
+a_list[:] # creates copy of the list
+a_l = a_l + [2.0, 3]
+a_l.append('dog')
+a_l.extend()
 ```
 
-## Print
+- `list comprehension`
+A compact way to process all or part of the elements in a sequence and return a list with the results.
+
+```py
+ result = ['{:#04x}'.format(x) for x in range(256) if x % 2 == 0]
+
+"""
+ generates a list of strings containing even hex numbers (0x..) in the range  0 - 255.
+ The if clause is optional. If omitted, all elements in range(256) are processed.
+"""
+```
+
+- `mapping`
+A container object that supports arbitrary key lookups and implements the methods specified in the Mapping or MutableMapping abstract base classes. Examples include dict, collections.defaultdict, collections.OrderedDict and collections.Counter.
+
+- `method`
+A function which is defined inside a class body. If called as an attribute of an instance of that class, the method will get the instance object as its first argument (which is usually called self).
+
+- `sequence`
+An iterable which supports efficient element access using integer indices via the __getitem__() special method and defines a __len__() method that returns the length of the sequence. Some built-in sequence types are list, str, tuple, and bytes. Container w/ items stored in deterministic ordering
+
+- `set comprehension`
+A compact way to process all or part of the elements in an iterable and return a set with the results. results = {c for c in 'abracadabra' if c not in 'abc'} generates the set of strings {'r', 'd'}
+
+```py
+def f(arg):
+    ...
+f = staticmethod(f)
+
+@staticmethod
+def f(arg):
+    ...
+
+(int(3.15)) # converts floating pt # to integer 3
+```
+
+### Print
 
 ```py
 print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
@@ -230,14 +246,16 @@ print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
   - end: string appended after the last value, default a newline
   - flush: whether to forcibly flush the stream.
 
-## Class
+### Class
 
 ```py
 int([x]) -> integer int(x, base=10) -> integer
 # Convert a number or string to an integer
 ```
 
-## Sequence types: strings, lists, tuples, bytes sequences, bytes arrays, range() objects
+### Sequence types
+
+- strings, lists, tuples, bytes sequences, bytes arrays, range() objects
 
 ### Strings
 <!-- cspell: disable  -->
@@ -288,7 +306,7 @@ print('''\
 print(r'C:\some\name')
 ```
 
-## File Handling
+### File Handling
 
 - "r" Read - default value; Opens a file for reading, error if file !exist
 - "a" Append - opens for appending; creates if !exist
@@ -320,5 +338,7 @@ fa.close()
 ## API Info
 
 1. Bus info to practice requests [PortAuthority][stop_times]
+
+___
 
 [stop_times]: https://stoptimes.portauthority.org/default?address=345%20Sixth%20Ave%2015222
