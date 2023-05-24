@@ -83,15 +83,10 @@ async def startup():
 async def shutdown():
     await database.disconnect()
 
-######
-#  Original base example
 
-# from fastapi import FastAPI
+@app.post('/notes/', response_model=Note, status_code=status.HTTP_201_CREATED)
+async def create_note(note: NoteIn):
+    query = notes.insert().values(text=note.text, completed=note.completed)
+    last_record_id = await database.execute(query)
+    return {**note.dict(), 'id': last_record_id}
 
-# app = FastAPI()
-
-
-# @app.get("/")
-# async def root():
-#     return {"message": "Welcome to DeD"}
-#####
