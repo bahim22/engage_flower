@@ -39,6 +39,20 @@ git push -u origin dev
 git remote -v
 git branch --v
 
+
+Step 1: Clone the repository or update your local repository with the latest changes.
+
+git pull origin ppu
+Step 2: Switch to the base branch of the pull request.
+
+git checkout ppu
+Step 3: Merge the head branch into the base branch.
+
+git merge dependabot/pip/py-prac/requests-2.31.0
+Step 4: Push the changes.
+
+git push -u origin ppu
+
 # edit ssh config file
 code ~/.ssh/config
 

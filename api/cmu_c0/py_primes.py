@@ -83,7 +83,7 @@ assert(piUsingSieve(100) == 25)
 assert(piUsingIsPrime(100) == 25)
 assert(piUsingSieve(1000) == 168)
 assert(piUsingIsPrime(1000) == 168)
-print "Passed!"
+print( "Passed!")
 
 ####################################################
 
@@ -98,26 +98,36 @@ import time
 
 n = 1000 * 1000  # one million
 
-print "***************"
-print "Timing piUsingIsPrime(" + str(n) + "):"
+print( "***************")
+print( "Timing piUsingIsPrime(" + str(n) + "):")
 startTime = time.time()
 result1 = piUsingIsPrime(n)
 endTime = time.time()
 time1 = endTime - startTime
-print "   result = " + str(result1)
-print "   time = " + str(time1) + " sec"
+print( "   result = " + str(result1))
+print( "   time = " + str(time1) + " sec")
 
-print "***************"
-print "Timing piUsingSieve(" + str(n) + "):"
+print( "***************")
+print( "Timing piUsingSieve(" + str(n) + "):")
 startTime = time.time()
 result2 = piUsingSieve(n)
 endTime = time.time()
 time2 = endTime - startTime
-print "   result = " + str(result2)
-print "   time = " + str(time2) + " sec"
+print( "   result = " + str(result2))
+print( "   time = " + str(time2) + " sec")
 
-print "***************"
-print "Comparison:"
-print "   Same result: " + str(result1 == result2)
-print "   (time of isPrime) / (time of sieve) = " + str(time1 / time2)
-print "And this only gets worse, and quickly, for larger values of n."
+print( "***************")
+print( "Comparison:")
+print( "Same result: " + str(result1 == result2))
+print( "(time of isPrime) / (time of sieve) = " + str(time1 / time2))
+print( "And this only gets worse, and quickly, for larger values of n.")
+
+def isPrime(n):
+    if (n < 2): return False
+    if (n == 2): return True
+    if (n % 2 == 0): return False
+    for factor in range(3, 1+ int())
+    """
+        range(stop) -> range object range(start, stop[, step]) -> range object
+        range(i, j) produces i, i+1, i+2, ..., j-1. start defaults to 0, and stop is omitted! range(4) produces 0, 1, 2, 3.
+    """

@@ -1,0 +1,6 @@
+bool[] sieve (int n)
+//@requires n >= 2;
+//@ensures \length(\result) == n+1;
+{
+	...
+}

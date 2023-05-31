@@ -12,8 +12,8 @@
 
 ```py
 # Shebang examples
-
-#! /usr/bin/python
+#!/usr/bin/env python
+#!/usr/bin/python
 # || usr/bin/python -v || ./.myvenv/Scripts/python.exe
 
 import sys
