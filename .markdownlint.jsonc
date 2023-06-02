@@ -8,7 +8,7 @@
     "heading-increment": false,
 		"MD007": {
 				// Spaces for indent
-				"indent": 2,
+				"indent": 1,
 				// Whether to indent the first level of the list
 				"start_indented": false
 				// Spaces for first level indent (when start_indented is set)

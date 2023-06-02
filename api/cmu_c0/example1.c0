@@ -1,0 +1,2 @@
+// @requires n >= 2;
+//@ensures \length(\result) == n+1;

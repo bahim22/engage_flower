@@ -76,14 +76,14 @@ def isPrime(n):
 # seemingly work.  Test values are from:
 # http://en.wikipedia.org/wiki/Prime-counting_function
 
-print "First testing functions for correctness...",
+print("First testing functions for correctness...",)
 assert(piUsingSieve(10) == 4)
 assert(piUsingIsPrime(10) == 4)
 assert(piUsingSieve(100) == 25)
 assert(piUsingIsPrime(100) == 25)
 assert(piUsingSieve(1000) == 168)
 assert(piUsingIsPrime(1000) == 168)
-print( "Passed!")
+print("Passed!")
 
 ####################################################
 
@@ -122,12 +122,24 @@ print( "Same result: " + str(result1 == result2))
 print( "(time of isPrime) / (time of sieve) = " + str(time1 / time2))
 print( "And this only gets worse, and quickly, for larger values of n.")
 
-def isPrime(n):
+
+def isPrime1(n):
     if (n < 2): return False
     if (n == 2): return True
     if (n % 2 == 0): return False
     for factor in range(3, 1+ int())
-    """
-        range(stop) -> range object range(start, stop[, step]) -> range object
-        range(i, j) produces i, i+1, i+2, ..., j-1. start defaults to 0, and stop is omitted! range(4) produces 0, 1, 2, 3.
-    """
+
+def isPrime2(n):
+    if (n < 2): return False
+    # deal with evens first (to cut time in half)
+    if (n == 2): return True
+    if (n % 2 == 0): return False
+    # then only check odds up to the square root
+    for factor in range(3, 1+int(round(n**0.5)), 2):
+        if (n % factor == 0):
+            return False
+    return True
+"""
+    range(stop) -> range object range(start, stop[, step]) -> range object
+    range(i, j) produces i, i+1, i+2, ..., j-1. start defaults to 0, and stop is omitted! range(4) produces 0, 1, 2, 3.
+"""

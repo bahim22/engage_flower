@@ -9,6 +9,9 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1"
   },
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -19,9 +22,15 @@
     "extends": [
       "react-app"
     ],
-		"root": true,
-		"parserOptions": {"ecmaVersion": "latest", "ecmaFeatures": {"destructuring": true, "restParams": true, "spread": true}}
-
+    "root": true,
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "ecmaFeatures": {
+        "destructuring": true,
+        "restParams": true,
+        "spread": true
+      }
+    }
   },
   "browserslist": {
     "production": [
@@ -33,10 +42,10 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version",
-			"last 1 edge version"
+      "last 1 edge version"
     ]
   },
   "engines": {
-	"node": ">=18.0.0"
+    "node": ">=18.0.0"
   }
 }
