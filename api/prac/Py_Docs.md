@@ -41,6 +41,57 @@ where python && which python
 
 ___
 
+### Python functions
+
+- parameter: the var listed inside the parentheses in the func definition
+- argument: the value that's sent to the function when it's called
+
+#### arbitrary arguments (args), keyword arguments (kwargs)
+
+```py
+def func1(*status):
+	print("Your Device is powered " + status[2])
+# use one * so func rec a tuple of args to access
+
+def my_function(child3, child2, child1):
+  print("The youngest child is " + child3)
+
+my_function(child1 = "Emil", child2 = "Tobias", child3 = "Linus")
+
+# send args with key = value syntax so the order doesn't matter
+def func_kwargs(**ppl):
+	print("There's people here named " + ppl["lname"])
+
+func_kwargs(fname = "Hima", lname = "Dio", mname = "D.")
+# function rec a dict of args from double ** placed before param name
+
+def func_def(country = "U.S."):
+	print("I'm from the " + country)
+
+func_def("France")
+func_def()
+
+def tri_recursion(k):
+	"""
+		tri_recursion() is a function that we have defined to call itself ("recurse"). We use the k variable as the data, which decrements (-1) every time we recurse. The recursion ends when the condition is not greater than 0
+
+		function recursion: a defined function can call itself
+	"""
+  if(k > 0):
+    result = k + tri_recursion(k - 1)
+    print(result)
+  else:
+    result = 0
+  return result
+
+print("\n\nRecursion Example Results")
+tri_recursion(6)
+
+# lambda arguments : expression
+x = lambda a : a + 10
+print(x(5))
+```
+
 ### virtual env
 
 ```ps1
@@ -115,8 +166,17 @@ time python -m pip install \
       --force-reinstall \
       --only-binary=cryptography \
       cryptography
-# curl
+
 curl --dns-servers 1.1.1.1,1.0.0.1 --compressed -o $file -# $url
+curl -v -u $UNAME@pointpark.freshservice.com: $FS_KEY -X GET 'https://pointpark.freshservice.com/api/v2/departments'
+
+curl -v -u $FS_KEY -X GET 'https://pointpark.freshservice.com/api/v2/canned_response_folders/Personal'
+curl -v -u $FS_KEY -X GET 'https://pointpark.freshservice.com/api/v2/tickets/filter?query="status:3%20OR%20status:4"&page=1'
+
+curl -v -u  -X GET 'https://pointpark.freshservice.com/api/v2/agent_fields' \ "Content-Type: application/json"
+curl -v -u  -X GET 'https://pointpark.freshservice.com/api/v2/agents?active=true'
+
+curl -v -u  -X "Connection: close" "https://pointpark.freshservice.com/api/v2"
 ```
 
 ### Pip commands

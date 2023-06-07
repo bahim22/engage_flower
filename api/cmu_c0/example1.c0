@@ -1,2 +1,8 @@
-// @requires n >= 2;
-//@ensures \length(\result) == n+1;
+/* // @requires n >= 2;
+//@ensures \length(\result) == n+1; */
+
+// int[] A = alloc_array(int, 10);
+
+inf f(int x, int y) {
+	
+}

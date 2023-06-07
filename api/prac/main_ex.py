@@ -1,4 +1,5 @@
 # for PostgreSQL Server
+from contextlib import asynccontextmanager
 from typing import List
 import databases
 import sqlalchemy
@@ -7,6 +8,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
 from urllib.parse import quote_plus
+from dotenv import load_dotenv
+load_dotenv()
 
 host_server = os.environ.get('host_server', 'localhost')
 db_server_port = quote_plus(str(os.environ.get('db_server_port', '5432')))
@@ -15,11 +18,8 @@ db_uname = quote_plus(str(os.environ.get('db_uname', 'postgres')))
 db_passwrd = quote_plus(str(os.environ.get('db_passwrd', 'secre_key')))
 ssl_mode = quote_plus(str(os.environ.get('ssl_mode', 'prefer')))
 
-DATABASE_URL = f'postgresql://{db_uname}:{db_passwrd}@{host_server}:{db_server_port}/{db_name}?sslmode={ssl_mode}'
-
-dbsection1 = f'postgresql://{db_uname}:{db_passwrd}@'
-dbsection2 = f'{host_server}:{db_server_port}/{db_name}?sslmode={ssl_mode}'
-db_url2 = f'{dbsection1}{dbsection2}'
+DATABASE_URL = f'postgresql://{db_uname}:{db_passwrd}@{host_server}:' \
+    + f'{db_server_port}/{db_name}?sslmode={ssl_mode}'
 
 database = databases.Database(DATABASE_URL)
 
@@ -50,43 +50,24 @@ class Note(BaseModel):
     completed: bool
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # connect to DB then release DB
+    database.connect()
+    yield
+    await database.disconnect()
 
-origins: list[str] = [
-    "http://localhost",
-    "http://localhost:8000",
-    "https://localhost:8000",
-    "http://127.0.0.1:8000/"
-    "http://127.0.0.1:3000/"
-]
-
+app = FastAPI(title="Hima FastAPI, React App", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
-    all_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.get("/")
-async def main() -> dict[str, str]:
-    return {"message": "Welcome Middleware"}
-
-
-@app.on_event("startup")
-async def startup():
-    await database.connect()
-
-
-@app.on_event("shutdown")
-async def shutdown():
-    await database.disconnect()
-
 
 @app.post('/notes/', response_model=Note, status_code=status.HTTP_201_CREATED)
 async def create_note(note: NoteIn):
     query = notes.insert().values(text=note.text, completed=note.completed)
     last_record_id = await database.execute(query)
     return {**note.dict(), 'id': last_record_id}
-
