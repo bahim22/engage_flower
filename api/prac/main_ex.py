@@ -50,14 +50,7 @@ class Note(BaseModel):
     completed: bool
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # connect to DB then release DB
-    database.connect()
-    yield
-    await database.disconnect()
-
-app = FastAPI(title="Hima FastAPI, React App", lifespan=lifespan)
+app = FastAPI(title="Hima FastAPI, React App")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -65,6 +58,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.post('/notes/', response_model=Note, status_code=status.HTTP_201_CREATED)
 async def create_note(note: NoteIn):
