@@ -1,1 +1,4 @@
 api/.venv
+.env
+api/.env
+/.env
