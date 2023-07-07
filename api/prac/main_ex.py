@@ -63,7 +63,8 @@ app.add_middleware(
 app.add_middleware(GZipMiddleware)
 
 
-""" @app.post('/notes/', response_model=Note, status_code=status.HTTP_201_CREATED)
+""" @app.post('/notes/', response_model=Note,\
+status_code=status.HTTP_201_CREATED)
 async def create_note(note: NoteIn):  # type: ignore
     query = notes.insert().values(text=note.text, completed=note.completed)
     last_record_id = await database.execute(query)

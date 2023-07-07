@@ -5,11 +5,10 @@
 
 1. Set up a FastAPI backend: Create an API endpoint in FastAPI that connects to your MongoDB database, retrieves the data from the desired table, and sends it as a response.
 
-2. Create a React project: Set up a new React project using a tool like Create React App (CRA) or your preferred method.
+2. Create a React project:
 
 3. Fetch data from the API: In your React component, use the `fetch` or `axios` library to make an HTTP request to the FastAPI endpoint you created. This will retrieve the data from the MongoDB table.
-
-   Here's an example of how you can fetch data in React using the `fetch` function:
+   1. fetch data in React using the `fetch` function:
 
    ```jsx
    import React, { useEffect, useState } from 'react';
@@ -32,8 +31,7 @@
    ```
 
 4. Render the data: Once the data is fetched successfully, you can render it in your React component. You can use JavaScript's array mapping function to iterate over the data and generate the necessary elements.
-
-   Here's an example of rendering the data as a list:
+   1. ex. of rendering the data as a list:
 
    ```jsx
    function MyComponent() {
@@ -140,9 +138,9 @@ async def get_data():
 
 1. Run the FastAPI server: Start the FastAPI server to make the endpoints available for requests.
 
-   ```bash
-   uvicorn main:app --reload
-   ```
+```sh
+uvicorn main:app --reload
+```
 
 Assuming the code is in a file named `main.py`, this command starts the server on `http://localhost:8000` and enables auto-reloading for development.
 
