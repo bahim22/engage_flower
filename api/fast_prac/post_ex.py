@@ -1,6 +1,6 @@
 # for PostgreSQL Server
 
-from contextlib import asynccontextmanager
+# from contextlib import asynccontextmanager
 from typing import List
 import databases
 import sqlalchemy
@@ -10,7 +10,9 @@ from fastapi.middleware.gzip import GZipMiddleware
 from pydantic import BaseModel
 import os
 from urllib.parse import quote_plus
+# from python-dotenv import load_dotenv
 from dotenv import load_dotenv
+
 load_dotenv()
 
 host_server = os.environ.get('host_server', 'localhost')

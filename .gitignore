@@ -2,3 +2,5 @@ api/.venv
 .env
 api/.env
 /.env
+./api/.env
+api/.env/*
