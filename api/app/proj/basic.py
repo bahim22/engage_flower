@@ -1,11 +1,13 @@
 # for PostgreSQL Server
 
-from typing import List
+from typing import List, Union
 import databases
 import sqlalchemy
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
+# import api.app.polls.endpoints as poll_endpoints
+# from fastapi import APIRouter
 from pydantic import BaseModel
 import os
 from urllib.parse import quote_plus
@@ -13,15 +15,27 @@ from dotenv import load_dotenv
 load_dotenv('../.env.local')
 
 
-host_server = os.environ.get('PGHOST', 'localhost')
+host_server = os.environ.get('PGHOST', 'host')
 db_server_port = quote_plus(str(os.environ.get('PGPORT', '5432')))
-db_name = os.environ.get('PGDATABASE', 'dev_db')
-db_uname = quote_plus(str(os.environ.get('PGUSER', 'postgres')))
-db_password = quote_plus(str(os.environ.get('PGPASSWORD', 'secre_key')))
-ssl_mode = quote_plus(str(os.environ.get('sslmode', 'require')))
+db_name = os.environ.get('PGDATABASE', 'postgres')
+db_uname = quote_plus(str(os.environ.get('PGUSER', 'uname')))
+db_password = quote_plus(str(os.environ.get('PGPASSWORD', 'password')))
+ssl_mode = quote_plus(str(os.environ.get('sslmode', 'prefer')))
+# host_server = os.environ.get('PGHOST', 'localhost')
+# db_server_port = os.environ.get('PGPORT')
+# db_name = os.environ.get('PGDATABASE', 'dev_db')
+# db_uname = os.environ.get('PGUSER')
+# db_password = os.environ.get('PGPASSWORD')
+# ssl_mode = os.environ.get('sslmode')
 
 DATABASE_URL = f'postgresql://{db_uname}:{db_password}@{host_server}:' \
     + f'{db_server_port}/{db_name}?sslmode={ssl_mode}'
+# DATABASE_URL = f'postgresql://{db_uname}:{db_password}@{host_server}:' \
+#     + f'{db_server_port}/{db_name}?sslmode={ssl_mode}'
+
+# cnx = psycopg2.connect(user="hapg", password="{your_password}", host="glrp1.postgres.database.azure.com", port=5432, database="")
+
+# DBURL = f'postgresql://glrp1.postgres.database.azure.com:5432/?user=hapg&password={password}&sslmode=require'
 
 # DATABASE_URL = 'postgresql://{}:{}@{}:{}/{}?sslmode={}' \
 #     .format(db_uname, db_password, host_server,
@@ -58,18 +72,18 @@ class Note(BaseModel):
     completed: bool
 
 
-app = FastAPI(title="REST API using FastAPI PostgreSQL Async EndPoints")
+app = FastAPI(title="Hima App using FastAPI, Azure PostgreSQL \
+    DB Async EndPoints")
 
-origins: list[str] = [
-    "http://localhost",
-    "http://localhost:8000",
-    "https://localhost:8000",
-    "http://127.0.0.1:8000/",
-    "http://127.0.0.1:5432/",
-    "http://127.0.0.1:3000/",
-    "http://127.0.0.1:5050/",
-    "glrp1.postgres.database.azure.com"
-]
+# origins: list[str] = [
+#     "http://localhost",
+#     "http://localhost:8000",
+#     "https://localhost:8000",
+#     "http://127.0.0.1:8000/",
+#     "http://127.0.0.1:5432/",
+#     "http://127.0.0.1:3000/",
+#     "http://127.0.0.1:5050/",
+# ]
 
 app.add_middleware(
     CORSMiddleware,
@@ -81,6 +95,8 @@ app.add_middleware(
 )
 app.add_middleware(GZipMiddleware)
 
+# app.include_router(poll_endpoints.APIRouter)
+
 
 @app.on_event("startup")
 async def startup():
@@ -90,6 +106,12 @@ async def startup():
 @app.on_event("shutdown")
 async def shutdown():
     await database.disconnect()
+
+
+# @app.get("'/api/polls/")
+@app.get("/")
+async def root() -> Union[str, dict]:
+    return {"Alert": "API is Live and Connected!"}
 
 
 @app.post('/notes/', response_model=Note, status_code=status.HTTP_201_CREATED)
