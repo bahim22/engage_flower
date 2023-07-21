@@ -1,6 +1,6 @@
 # app/main.py with db
 
-from sqlite3 import connect
+# from sqlite3 import connect
 from typing import List
 import databases
 import sqlalchemy

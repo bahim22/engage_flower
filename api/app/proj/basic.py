@@ -33,13 +33,6 @@ DATABASE_URL = f'postgresql://{db_uname}:{db_password}@{host_server}:' \
 # DATABASE_URL = f'postgresql://{db_uname}:{db_password}@{host_server}:' \
 #     + f'{db_server_port}/{db_name}?sslmode={ssl_mode}'
 
-# cnx = psycopg2.connect(user="hapg", password="{your_password}", host="glrp1.postgres.database.azure.com", port=5432, database="")
-
-# DBURL = f'postgresql://glrp1.postgres.database.azure.com:5432/?user=hapg&password={password}&sslmode=require'
-
-# DATABASE_URL = 'postgresql://{}:{}@{}:{}/{}?sslmode={}' \
-#     .format(db_uname, db_password, host_server,
-#             db_server_port, db_name, ssl_mode)
 
 database = databases.Database(DATABASE_URL)
 
@@ -72,23 +65,23 @@ class Note(BaseModel):
     completed: bool
 
 
-app = FastAPI(title="Hima App using FastAPI, Azure PostgreSQL \
-    DB Async EndPoints")
+app = FastAPI(title="Fullstack App using FastAPI, Azure PostgreSQL \
+    DB, Async EndPoints")
 
-# origins: list[str] = [
-#     "http://localhost",
-#     "http://localhost:8000",
-#     "https://localhost:8000",
-#     "http://127.0.0.1:8000/",
-#     "http://127.0.0.1:5432/",
-#     "http://127.0.0.1:3000/",
-#     "http://127.0.0.1:5050/",
-# ]
+origins: list[str] = [
+    "http://localhost",
+    "http://localhost:8000",
+    "https://localhost:8000",
+    "http://127.0.0.1:8000/",
+    "http://127.0.0.1:5432/",
+    "http://127.0.0.1:3000/",
+    "http://127.0.0.1:5050/",
+]
 
 app.add_middleware(
     CORSMiddleware,
-    # all_origins=origins,
-    allow_origins=["*"],
+    allow_origins=origins,
+    # allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
