@@ -7,7 +7,7 @@ const clientA = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology
 client.connect(err => {
   const collection = clientA.db("test").collection("devices");
   // perform actions on the collection object
-  client.close();
+  clientA.close();
 });
 
 // !* Example 2
@@ -18,7 +18,7 @@ const fs = require('fs');
 // <path_to_certificate>
 const credentials = 'D:/Downloads_Vol2/X509-cert-8384835665760269109.pem'
 
-const client2 = new MongoClient('mongodb+srv://cluster0.6ybaeqt.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority', {
+const client = new MongoClient(process.env.MDB_URI, {
   sslKey: credentials,
   sslCert: credentials,
   serverApi: ServerApiVersion.v1
@@ -45,8 +45,8 @@ import { MongoClient } from 'mongodb';
 import fs from 'fs' // || fs/promises
 
 // Enable command monitoring for debugging
-const client = new MongoClient('mongodb://localhost:27017', { monitorCommands: true });
+const clientB = new MongoClient('mongodb://localhost:27017', { monitorCommands: true });
 
-client.on('commandStarted', started => console.log(started));
-client.db().collection('pets');
-await client.insertOne({ name: 'spot', kind: 'dog' });
+clientB.on('commandStarted', started => console.log(started));
+clientB.db().collection('pets');
+await clientB.insertOne({ name: 'spot', kind: 'dog' });

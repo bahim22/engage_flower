@@ -5,14 +5,14 @@
     "MD035": false,
     "MD025": false,
     "spelling": true,
-    "heading-increment": false,
+    "heading-increment": true,
 		"MD007": {
 				// Spaces for indent
-				"indent": 1,
+				"indent": 2
 				// Whether to indent the first level of the list
-				"start_indented": false
+				// "start_indented": true,
 				// Spaces for first level indent (when start_indented is set)
-				// "start_indent": 2
+				// "start_indent": 1
 		},
 		"indentation": true,
     "no-duplicate-heading": false,
