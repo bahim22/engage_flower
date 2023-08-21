@@ -3,6 +3,7 @@
 from typing import List, Union
 import databases
 import sqlalchemy
+from sqlalchemy.orm import sessionmaker
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
@@ -15,12 +16,12 @@ from dotenv import load_dotenv
 load_dotenv('../.env.local')
 
 
-host_server = os.environ.get('PGHOST', 'host')
+""" host_server = os.environ.get('PGHOST', 'host')
 db_server_port = quote_plus(str(os.environ.get('PGPORT', '5432')))
 db_name = os.environ.get('PGDATABASE', 'postgres')
 db_uname = quote_plus(str(os.environ.get('PGUSER', 'uname')))
 db_password = quote_plus(str(os.environ.get('PGPASSWORD', 'password')))
-ssl_mode = quote_plus(str(os.environ.get('sslmode', 'prefer')))
+ssl_mode = quote_plus(str(os.environ.get('sslmode', 'prefer'))) """
 # host_server = os.environ.get('PGHOST', 'localhost')
 # db_server_port = os.environ.get('PGPORT')
 # db_name = os.environ.get('PGDATABASE', 'dev_db')
@@ -28,11 +29,12 @@ ssl_mode = quote_plus(str(os.environ.get('sslmode', 'prefer')))
 # db_password = os.environ.get('PGPASSWORD')
 # ssl_mode = os.environ.get('sslmode')
 
-DATABASE_URL = f'postgresql://{db_uname}:{db_password}@{host_server}:' \
-    + f'{db_server_port}/{db_name}?sslmode={ssl_mode}'
+# DATABASE_URL = f'postgresql://{db_uname}:{db_password}@{host_server}:' \
+#     + f'{db_server_port}/{db_name}?sslmode={ssl_mode}'
 # DATABASE_URL = f'postgresql://{db_uname}:{db_password}@{host_server}:' \
 #     + f'{db_server_port}/{db_name}?sslmode={ssl_mode}'
 
+DATABASE_URL = f"postgresql://{db_uname}:{db_password}@ep-soft-block-13293107.us-east-1.postgres.vercel-storage.com:5432/verceldb"
 
 database = databases.Database(DATABASE_URL)
 
@@ -44,6 +46,7 @@ notes = sqlalchemy.Table(
     metadata,
     sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
     sqlalchemy.Column("text", sqlalchemy.String),
+    # sqlalchemy.Column("title", sqlalchemy.String, nullable=False),
     sqlalchemy.Column("completed", sqlalchemy.Boolean),
 )
 
@@ -53,16 +56,22 @@ engine = sqlalchemy.create_engine(
 )
 metadata.create_all(engine)
 
+# edit
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+# Base.metadata.create_all(bind=engine)
+
 
 class NoteIn(BaseModel):
     text: str
     completed: bool
+    # title: str
 
 
 class Note(BaseModel):
     id: int
     text: str
     completed: bool
+    # title: str
 
 
 app = FastAPI(title="Fullstack App using FastAPI, Azure PostgreSQL \
@@ -71,6 +80,7 @@ app = FastAPI(title="Fullstack App using FastAPI, Azure PostgreSQL \
 origins: list[str] = [
     "http://localhost",
     "http://localhost:8000",
+    "http://localhost:3000",
     "https://localhost:8000",
     "http://127.0.0.1:8000/",
     "http://127.0.0.1:5432/",
@@ -105,6 +115,15 @@ async def shutdown():
 @app.get("/")
 async def root() -> Union[str, dict]:
     return {"Alert": "API is Live and Connected!"}
+
+
+# edit
+""" @app.get("/notes")
+async def get_notes():
+    db = SessionLocal()
+    notes = db.query(Note).all()
+    db.close()
+    return notes """
 
 
 @app.post('/notes/', response_model=Note, status_code=status.HTTP_201_CREATED)

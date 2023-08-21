@@ -172,6 +172,7 @@ Assuming the code is in a file named `main.py`, this command starts the server o
 
 - adjust the code based on your specific MongoDB database and collection names, as well as any authentication or additional data processing requirements you may have.
 
+___
 
 To build the frontend of a full-stack web app using React.js and incorporate the Bootstrap CSS framework, follow these steps:
 
