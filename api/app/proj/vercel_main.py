@@ -2,56 +2,53 @@
 
 from typing import List, Union
 import databases
-import sqlalchemy
+
+from sqlalchemy import create_engine, Column, Integer, String, \
+    Boolean, MetaData, Table
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
-# import api.app.polls.endpoints as poll_endpoints
-# from fastapi import APIRouter
 from pydantic import BaseModel
 import os
 from urllib.parse import quote_plus
+# import api.app.polls.endpoints as poll_endpoints
+# from fastapi import APIRouter
 from dotenv import load_dotenv
 load_dotenv('../.env.local')
 
 
-""" host_server = os.environ.get('PGHOST', 'host')
+host_server = os.environ.get('VER_PG_HOST', 'host')
 db_server_port = quote_plus(str(os.environ.get('PGPORT', '5432')))
-db_name = os.environ.get('PGDATABASE', 'postgres')
-db_uname = quote_plus(str(os.environ.get('PGUSER', 'uname')))
-db_password = quote_plus(str(os.environ.get('PGPASSWORD', 'password')))
-ssl_mode = quote_plus(str(os.environ.get('sslmode', 'prefer'))) """
-# host_server = os.environ.get('PGHOST', 'localhost')
-# db_server_port = os.environ.get('PGPORT')
-# db_name = os.environ.get('PGDATABASE', 'dev_db')
-# db_uname = os.environ.get('PGUSER')
-# db_password = os.environ.get('PGPASSWORD')
-# ssl_mode = os.environ.get('sslmode')
+db_name = os.environ.get('VER_PG_DB', 'verceldb')
+db_uname = quote_plus(str(os.environ.get('VER_PG_USER', 'default')))
+db_password = quote_plus(str(os.environ.get('VER_PG_PASSWORD', 'password')))
+ssl_mode = quote_plus(str(os.environ.get('AZ_sslmode', 'prefer')))
 
-# DATABASE_URL = f'postgresql://{db_uname}:{db_password}@{host_server}:' \
-#     + f'{db_server_port}/{db_name}?sslmode={ssl_mode}'
-# DATABASE_URL = f'postgresql://{db_uname}:{db_password}@{host_server}:' \
-#     + f'{db_server_port}/{db_name}?sslmode={ssl_mode}'
 
-DATABASE_URL = f"postgresql://{db_uname}:{db_password}@ep-soft-block-13293107.us-east-1.postgres.vercel-storage.com:5432/verceldb"
+# DATABASE_URL11 = f'postgresql://{db_uname}:{db_password}@' \
+#     + f'{host_server}:{db_server_port}/{db_name}?sslmode={ssl_mode}'
+
+
+DATABASE_URL = f'postgresql://default:S4FtIbAr8Tkh@ep-soft-block-13293107.us-east-1.postgres.vercel-storage.com:5432/verceldb'
 
 database = databases.Database(DATABASE_URL)
 
 
-metadata = sqlalchemy.MetaData()
+metadata = MetaData()
 
-notes = sqlalchemy.Table(
+notes = Table(
     "notes",
     metadata,
-    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
-    sqlalchemy.Column("text", sqlalchemy.String),
-    # sqlalchemy.Column("title", sqlalchemy.String, nullable=False),
-    sqlalchemy.Column("completed", sqlalchemy.Boolean),
+    Column("id", Integer, primary_key=True),
+    Column("text", String),
+    # Column("title", String, nullable=False),
+    Column("completed", Boolean),
 )
 
 
-engine = sqlalchemy.create_engine(
+engine = create_engine(
     DATABASE_URL, pool_size=3, max_overflow=0
 )
 metadata.create_all(engine)
@@ -74,18 +71,17 @@ class Note(BaseModel):
     # title: str
 
 
-app = FastAPI(title="Fullstack App using FastAPI, Azure PostgreSQL \
-    DB, Async EndPoints")
+app = FastAPI(title="FastAPI, Vercel PostgreSQL \
+    App", description="Async API EP with React frontend")
 
 origins: list[str] = [
     "http://localhost",
-    "http://localhost:8000",
     "http://localhost:3000",
-    "https://localhost:8000",
-    "http://127.0.0.1:8000/",
-    "http://127.0.0.1:5432/",
+    "http://localhost:8000",
     "http://127.0.0.1:3000/",
     "http://127.0.0.1:5050/",
+    "http://127.0.0.1:5432/",
+    "http://127.0.0.1:8000/",
 ]
 
 app.add_middleware(
@@ -98,8 +94,6 @@ app.add_middleware(
 )
 app.add_middleware(GZipMiddleware)
 
-# app.include_router(poll_endpoints.APIRouter)
-
 
 @app.on_event("startup")
 async def startup():
@@ -111,10 +105,9 @@ async def shutdown():
     await database.disconnect()
 
 
-# @app.get("'/api/polls/")
 @app.get("/")
 async def root() -> Union[str, dict]:
-    return {"Alert": "API is Live and Connected!"}
+    return {"Connection Info": "API for Vercel PG is Live!"}
 
 
 # edit
