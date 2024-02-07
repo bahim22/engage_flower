@@ -142,7 +142,7 @@ SQLAlchemy==1.4.49
 sqlparse==0.4.4
 sshtunnel==0.4.0
 stack-data==0.6.2
-starlette==0.27.0
+starlette==0.36.2
 tomli==2.0.1
 tornado==6.3.3
 traitlets==5.9.0
