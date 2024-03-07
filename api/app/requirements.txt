@@ -94,7 +94,7 @@ paramiko==3.4.0
 parso==0.8.3
 passlib==1.7.4
 pexpect==4.8.0
-pgadmin4==7.7
+pgadmin4==8.4
 pickleshare==0.7.5
 Pillow==9.5.0
 platformdirs==3.5.0
