@@ -30,7 +30,7 @@ cryptography==41.0.4
 databases==0.7.0
 debugpy==1.6.7
 decorator==5.1.1
-dnspython==2.3.0
+dnspython==2.6.1
 email-validator==2.0.0.post2
 eventlet==0.33.3
 executing==1.2.0
